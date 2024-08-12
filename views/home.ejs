@@ -4,21 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/css/style.css"> <!-- Ensure this path is correct -->
 </head>
 <body>
-    <img src="/public/images/logo.svg" alt="">
-    <h3>Mock JSON Databse CRUD operations</h3>
-    <!-- Our data goes here <%= data  %> -->
-     <div id="formContainer">
+    <img src="/images/logo.svg" alt="">
+    <h3>Mock JSON Database CRUD operations</h3>
 
-
-        <form action="/users" method="post" id="addUserForm">
-            <h4>
-                User (POST METHOD) Form
-            </h4>
+    <div id="formContainer">
+        <form action="/users" method="POST" id="addUserForm">
+            <h4>User (POST METHOD) Form</h4>
             <label for="username">Username: </label>
-            <input type="text" id="username", name="username" required>
+            <input type="text" id="username" name="username" required>
 
             <label for="first_name">First Name: </label>
             <input type="text" id="first_name" name="first_name" required>
@@ -30,20 +26,15 @@
             <input type="email" id="email" name="email" required>
 
             <button type="submit">Add user</button>
-
-
         </form>
 
-        <form action="/users/:id/update" method="post" id="editUserForm">
-            <h4>
-                User (POST/PUT METHOD) Form
-            </h4>
-
+        <form id="editUserForm" method="POST">
+            <h4>User (POST/PUT METHOD) Form</h4>
             <label for="id">ID: </label>
-            <input type="number" id="edit_ID", name="id" required>
+            <input type="number" id="edit_ID" name="id" required>
 
             <label for="new_username">New Username: </label>
-            <input type="text" id="new_username", name="new_username" required>
+            <input type="text" id="new_username" name="new_username" required>
 
             <label for="new_first_name">First Name: </label>
             <input type="text" id="new_first_name" name="new_first_name" required>
@@ -54,12 +45,28 @@
             <label for="new_email">Email: </label>
             <input type="email" id="new_email" name="new_email" required>
 
-            <button type="submit">Add user</button>
-
-
+            <button type="submit" onclick="updateUser()">Update User</button>
         </form>
 
+        <form id="deleteUserForm" method="POST">
+            <h4>Delete (DELETE or POST METHOD) Form</h4>
+            <input type="number" id="delete_id" name="id" placeholder="User ID" required>
+            <button type="submit" onclick="deleteUser()">Delete User</button>
+        </form>
+    </div>
 
-     </div>
+    <script>
+        const updateUser = () => {
+            const editForm = document.getElementById("editUserForm");
+            const id = document.getElementById("edit_ID").value;
+            editForm.action = `/users/${id}/update`;
+        }
+
+        const deleteUser = () => {
+            const deleteForm = document.getElementById("deleteUserForm");
+            const id = document.getElementById("delete_id").value;
+            deleteForm.action = `/users/${id}/delete`;
+        }
+    </script>
 </body>
 </html>
